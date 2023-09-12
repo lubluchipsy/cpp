@@ -14,6 +14,5 @@ int main()
             std::cout << "e = " << e;
             break;
         }
-        
     }
 }
