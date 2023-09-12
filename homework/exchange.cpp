@@ -12,7 +12,4 @@ int main()
     y = x - y;
     x -= y;
     std::cout << "x = " << x << "\n" << "y = " << y;
-
-    
-
 }
