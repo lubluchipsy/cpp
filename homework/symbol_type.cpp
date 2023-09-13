@@ -6,21 +6,30 @@ int main()
     std::cin >> ch;
     switch(ch)
     {
-        case '0' ... '9':
-            std::cout << "Десятичная цифра";
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            std::cout << "Digit";
             break;
         case '*':
         case '+':
         case '-':
         case '/':
-            std::cout << "Арифметический оператор";
+            std::cout << "Arithmetic operator";
             break;
         case '(':
         case ')':
-            std::cout << "Круглая скобка";
+            std::cout << "Parenthesis";
             break;
         default:
-            std::cout << "Остальные символы";
+            std::cout << "Other symbols";
             break;
     }
 }

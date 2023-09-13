@@ -7,7 +7,7 @@ int main()
     auto summand = 1.0;
     for (auto k = 1; ; k++)
     {
-        summand = summand / k;
+        summand /= k;
         e += summand;
         if (summand < epsilon)
         {
