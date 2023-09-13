@@ -10,6 +10,6 @@ int main()
     std::cin >> b;
 	a = static_cast < bool > (a);
 	b = static_cast < bool > (b);
-    auto result = (a || b) - (a && b );
+    auto result = a!=b;
     std::cout << "a xor b = " << result;
 }
