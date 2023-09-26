@@ -1,6 +1,6 @@
 #include <iostream>
 
-void merge(int arr[], int left, int mid, int right)
+void merge(int* arr, int left, int mid, int right)
 {
     auto size1 = mid - left + 1;
     auto size2 = right - mid;
@@ -55,7 +55,7 @@ void merge(int arr[], int left, int mid, int right)
     delete [] arr2;
 }
 
-void mergesort(int arr[], int left, int right)
+void mergesort(int* arr, int left, int right)
 {
     if (right > left)
     {

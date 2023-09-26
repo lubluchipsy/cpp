@@ -1,6 +1,6 @@
 #include <iostream>
 
-void insertionSort(int arr[], int left, int right)
+void insertionSort(int* arr, int left, int right)
 {
     auto size = right - left + 1;
     for (auto j = left + 1; j < left + size; j++)
@@ -18,7 +18,7 @@ void insertionSort(int arr[], int left, int right)
         }
 }
 
-void merge(int arr[], int left, int mid, int right)
+void merge(int* arr, int left, int mid, int right)
 {
     auto size1 = mid - left + 1;
     auto size2 = right - mid;
@@ -73,7 +73,7 @@ void merge(int arr[], int left, int mid, int right)
     delete [] arr2;
 }
 
-void hybridSort(int arr[], int left, int right)
+void hybridSort(int* arr, int left, int right)
 {
     if (right > left)
     {

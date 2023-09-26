@@ -31,12 +31,14 @@ int main()
     int size{};
     std::cout << "Enter array size: ";
     std::cin >> size;
+
     std::cout << "Enter sorted array: ";
     auto* arr = new int[size];
     for (auto i = 0; i < size; i++)
     {
          std::cin >> arr[i];
     }
+    
     int a{};
     std::cout << "Enter the number you are looking for: ";
     std::cin >> a;
