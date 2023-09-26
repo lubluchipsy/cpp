@@ -25,13 +25,12 @@ struct Lesson
 
 int main()
 {
-    
-    
     /*
     Here we create a random timetable for n_students students.
     Each student has max_lessons lessons which can repeat.
     There are n_lessons available lessons.
     */
+   
     int n_students{};
     int n_lessons{};
     std::cout << "Input number of students: ";
