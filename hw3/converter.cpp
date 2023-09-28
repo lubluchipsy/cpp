@@ -76,5 +76,4 @@ int main()
     std::cout << energy.get_cal() << " cal" << "\n";
     std::cout << energy.get_dzh() << " dzh" << "\n";
     std::cout << energy.get_ev() << " ev";
-    
 }
