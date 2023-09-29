@@ -20,36 +20,27 @@ void insertionSort(int* arr, int left, int right)
 
 void merge(int* arr, int left, int mid, int right)
 {
+    auto size = right - left + 1;
+
+    auto* res = new int[size];
+
     auto size1 = mid - left + 1;
     auto size2 = right - mid;
 
-    auto* arr1 = new int[size1];
-    auto* arr2 = new int[size2];
-
-    for (auto i = 0; i < size1; i++)
-    {
-        arr1[i] = arr[left + i];
-    }
-
-    for (auto i = 0; i < size2; i++)
-    {
-        arr2[i] = arr[mid + 1 + i];
-    }
-
     auto i = 0;
     auto j = 0;
-    auto k = left;
+    auto k = 0;
 
     while (i < size1 && j < size2)
     {
-        if (arr1[i] <= arr2[j])
+        if (arr[left + i] <= arr[mid+1 + j])
         {
-            arr[k] = arr1[i];
+            res[k] = arr[left + i];
             i++;
         }
         else
         {
-            arr[k] = arr2[j];
+            res[k] = arr[mid+1 + j];
             j++;
         }
         k++;
@@ -57,20 +48,24 @@ void merge(int* arr, int left, int mid, int right)
 
     while (i < size1)
     {
-        arr[k] = arr1[i];
+        res[k] = arr[left + i];
         i++;
         k++;
     }
 
     while (j < size2)
     {
-        arr[k] = arr2[j];
+        res[k] = arr[mid+1 + j];
         j++;
         k++;
     }
 
-    delete [] arr1;
-    delete [] arr2;
+    for (auto i = 0; i < size; i++)
+    {
+        arr[left + i] = res[i];
+    }
+
+    delete[] res;
 }
 
 void hybridSort(int* arr, int left, int right)
@@ -78,20 +73,21 @@ void hybridSort(int* arr, int left, int right)
     if (right > left)
     {
         const auto n = 3;  //if array has less than n elements, we use insertion sort
-        auto mid = left + (right - left) / 2;
-        if ((right - left + 1) < n)
+    
+        if ((right - left + 1) <= n)
         {
-            insertionSort(arr, left, mid);
-            insertionSort(arr, mid + 1, right);
+            insertionSort(arr, left, right);
         } 
         else
         {
+            auto mid = left + (right - left) / 2;
+
             hybridSort(arr, left, mid);
             hybridSort(arr, mid + 1, right);
+            
+            merge(arr, left, mid, right);
         }
-
-        merge(arr, left, mid, right);
-        }
+    }
 }
 
 int main()
