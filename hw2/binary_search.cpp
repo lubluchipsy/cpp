@@ -1,58 +1,49 @@
 #include <iostream>
 
-int bin_search(int arr[], int a, int left, int right)
+int * bin_search(int * arr, int a, int left, int right)
 {
-    while (left!=right)
+    if (right == 0)
+    {
+        return nullptr;
+    }
+
+    if (right == 1)
+    {
+        return (arr[0] == a ? arr : nullptr);
+    }
+
+    while (left < right)
     {
         auto mid = left + (right - left)/2;
-        if (arr[mid] >= a)
+        if (arr[mid] < a)
         {
-            right = mid;
-            bin_search(arr, a, left, right);
+            left = mid + 1;
         }
         else
         {
-            left = mid + 1;
-            bin_search(arr, a, left, right);
+            right = mid;
         }
     }
-    if (arr[left] == a)
-    {
-        return left;
-    }
-    else
-    {
-        return -1;
-    }
+    return (arr[left] == a ? (arr + left) : nullptr);
 }
 
 int main()
 {
-    int size{};
-    std::cout << "Enter array size: ";
-    std::cin >> size;
+    const auto size = 7;
 
-    std::cout << "Enter sorted array: ";
-    auto* arr = new int[size];
-    for (auto i = 0; i < size; i++)
+    auto a = new int[size]{1, 3, 4, 5, 6, 7, 8};
+
+    for(auto i = a[0] - 1; i <= a[size - 1] + 1; ++i)
     {
-         std::cin >> arr[i];
+        if(auto ptr = bin_search(a, i, 0 , size); ptr)
+        {
+            std::cout << "Element " << i << " found at index " << ptr - a << "\n";
+        }
+        else
+        {
+            std::cout << "Element " << i << " not found\n";
+        }
     }
-    
-    int a{};
-    std::cout << "Enter the number you are looking for: ";
-    std::cin >> a;
-    
-    auto result = bin_search(arr, a, 0, size-1);
-    
-    if (result == -1)
-    {
-        std::cout << "Number not found in the array";
-    }
-    else
-    {
-        std::cout << "The number is on position " << bin_search(arr, a, 0, size-1);
-    }
-    
+
     return 0;
 }
