@@ -8,12 +8,7 @@ void merge(int* arr, int left, int mid, int right)
 
     auto size1 = mid - left + 1;
     auto size2 = right - mid;
-/*
-    for (auto i = 0; i < size; i++)
-    {
-        res[i] = arr[left + i];
-    }
-*/
+
     auto i = 0;
     auto j = 0;
     auto k = 0;
@@ -91,4 +86,3 @@ int main()
     
     return 0;
 }
-
