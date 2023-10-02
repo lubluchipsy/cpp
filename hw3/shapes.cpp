@@ -7,6 +7,7 @@ public:
     Triangle() : m_a(0), m_b(0), m_c(0)
     {
     }
+
     Triangle(double a, double b, double c) : m_a(a), m_b(b), m_c(c)
     {
         if(m_a > (m_b + m_c) || m_b > (m_a + m_c) || m_c > (m_b + m_a))  //doesn't exist
@@ -117,13 +118,13 @@ int main()
     std::cin >> a >> b >> c;
     Triangle t(a, b, c);
     std::cout << "The area of the triangle is: " << t.area() << '\n';
-    std::cout << "The perimeter of the triangle is: " << t.perimeter() << '\n';
+    std::cout << "The perimeter of the triangle is: " << t.perimeter() << '\n' << '\n';
 
     std::cout << "Input size of square's side: ";
     std::cin >> a;
     Square s(a);
     std::cout << "The area of the square is: " << s.area() << '\n';
-    std::cout << "The perimeter of the square is: " << s.perimeter() << '\n';
+    std::cout << "The perimeter of the square is: " << s.perimeter() << '\n' << '\n';
 
     double r{};
     std::cout << "Input size of circle's radius: ";
@@ -132,5 +133,6 @@ int main()
     Circle o(r);
     std::cout << "The area of the circle is: " << o.area() << '\n';
     std::cout << "The perimeter of the circle is: " << o.perimeter() << '\n';
-    
+
+    return 0;
 }
