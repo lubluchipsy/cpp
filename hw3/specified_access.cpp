@@ -92,10 +92,11 @@ int main()
     SecretFactory sf;
     Secret s = sf.getSecret("moo!");
 
+
     return 0;
 }
 
 /*
 Attorney-client idiom and Passkey pattern have same functions: they both give access to a specified set of class private data to another class.
-In my opinion the Passkey pattern is easiar to read and understand.
+In my opinion the Passkey pattern is harder to understand.
 */
