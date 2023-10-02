@@ -18,29 +18,29 @@ public:
         }
     }
 
-    double perimeter()
+    double perimeter() const
     {
         return (m_a + m_b + m_c);
     }
 
-    double area()
+    double area() const
     {   
         auto p = 0.5 * perimeter();
 
         return (sqrt(p*(p - m_a)*(p - m_b)*(p - m_c)));
     }
 
-    const double get_a()
+    double get_a() const
     {
         return m_a;
     }
 
-    const double get_b()
+    double get_b() const
     {
         return m_b;
     }
 
-    const double get_c()
+    double get_c() const
     {
         return m_c;
     }
@@ -63,17 +63,17 @@ public:
     {
     }
 
-    double perimeter()
+    double perimeter() const
     {
         return (m_a * 4);
     }
 
-    double area()
+    double area() const
     {   
         return (m_a * m_a);
     }
 
-    const double get_a()
+    double get_a() const
     {
         return m_a;
     }
@@ -94,12 +94,12 @@ public:
     {
     }
 
-    double perimeter()
+    double perimeter() const
     {
         return 2 * 3.14 * m_r;
     }
 
-    double area()
+    double area() const
     {
         return 3.14 * m_r * m_r;
     }
