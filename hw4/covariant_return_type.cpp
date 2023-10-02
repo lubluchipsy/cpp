@@ -1,3 +1,10 @@
+/*
+Function can be overrided with a different return type
+if the type returned by the overridden function 
+is substitutable (sub-class) for the type of the base function.
+*/
+
+
 #include <iostream>
 
 
