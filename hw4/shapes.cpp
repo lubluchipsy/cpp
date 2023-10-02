@@ -16,8 +16,8 @@ double pow(double a, int b)
 class Shape
 {
 public:
-    virtual double perimeter() = 0;
-    virtual double area() = 0;
+    virtual double perimeter() const = 0;
+    virtual double area()  const = 0;
     virtual ~Shape() {};
 };
 
@@ -34,12 +34,12 @@ public:
     {
     }
 
-    double perimeter() override
+    double perimeter() const override
     {
         return 2 * (m_a + m_b);
     }
 
-    double area() override
+    double area() const override
     {
         return m_a * m_b;
     }
@@ -79,12 +79,12 @@ public:
         }
     }
 
-    double perimeter() override
+    double perimeter() const override
     {
         return (m_a + m_b + m_c);
     }
 
-    double area() override
+    double area() const override
     {   
         auto p = 0.5 * perimeter();
 
@@ -107,12 +107,12 @@ public:
     {
     }
 
-    double perimeter() override
+    double perimeter() const override
     {
         return (4*(pi*m_a*m_b - pow(m_a - m_b, 2))/(m_a + m_b));
     }
 
-    double area() override
+    double area() const override
     {
         return (pi * m_a * m_b);
     }
