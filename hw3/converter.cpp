@@ -19,44 +19,47 @@ public:
     {
     }
 
-    double get_dzh()
+    static inline const double q_e = 1.6 * pow(10, 19);
+    static inline const double cal = 4.184;
+
+    const double get_dzh()
     {
         switch(m_unit)
         {
             case 'd':
                 return m_value;
             case 'e':
-                return m_value * 1.6 * pow(10, 19);
+                return m_value * q_e;
             case 'c':
-                return m_value * 4.184;
+                return m_value * cal;
         }
         return 0;
     }
 
-    double get_cal()
+    const double get_cal()
     {
         switch(m_unit)
         {
             case 'd':
-                return m_value / 4.184;
+                return m_value / cal;
             case 'e':
-                return m_value * 3.83 * pow(10, 20);
+                return m_value * q_e / cal;
             case 'c':
                 return m_value;
         }
         return 0;
     }
 
-    double get_ev()
+    const double get_ev()
     {
         switch(m_unit)
         {
             case 'd':
-                return m_value * 6,24 * pow(10, 18);
+                return m_value / q_e;
             case 'e':
                 return m_value;
             case 'c':
-                return m_value * 2.61 * pow(10, 19);
+                return m_value * cal / q_e;
         }
         return 0;
     }
