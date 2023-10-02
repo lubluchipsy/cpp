@@ -8,6 +8,7 @@ class Student;
 class Lesson
 {
 public:
+
     Lesson(const std::string & name) : m_name(name) {}
 
     const auto & name() const
@@ -30,6 +31,7 @@ public:
     void show_students() const;
 
 private:
+
     std::string m_name;
 
     static inline const int max_students = 100;
@@ -40,15 +42,10 @@ private:
 };
 
 
-
-
-
 class Student
 {
 public:
 	Student(const std::string & name) : m_name(name) {}
-
-public:
 
 	const auto & name() const
 	{
@@ -73,14 +70,13 @@ private:
 
 	static inline const int max_lessons = 100;
 
-private:
-
 	std::string m_name;
 
 	Lesson * m_lessons[max_lessons]{};
 
 	int m_counter = 0;
 };
+
 
 void Lesson::show_students() const
 {
@@ -92,6 +88,7 @@ void Lesson::show_students() const
 	}
 }
 
+
 void Student::show_lessons() const
 {
 	std::cout << "Student " << m_name << " visits: " << std::endl;
@@ -102,10 +99,12 @@ void Student::show_lessons() const
 	}
 }
 
+
 void connect(Student * s, Lesson * l)
 {
 	s->add_lesson(l); l->add_student(s);
 }
+
 
 int main()
 {
