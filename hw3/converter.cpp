@@ -22,44 +22,44 @@ public:
     static inline const double q_e = 1.6 * pow(10, 19);
     static inline const double cal = 4.184;
 
-    const double get_dzh()
+    double get_dzh() const
     {
         switch(m_unit)
         {
             case 'd':
                 return m_value;
             case 'e':
-                return m_value * q_e;
+                return m_value / q_e;
             case 'c':
                 return m_value * cal;
         }
         return 0;
     }
 
-    const double get_cal()
+    double get_cal() const
     {
         switch(m_unit)
         {
             case 'd':
                 return m_value / cal;
             case 'e':
-                return m_value * q_e / cal;
+                return m_value / q_e / cal;
             case 'c':
                 return m_value;
         }
         return 0;
     }
 
-    const double get_ev()
+    double get_ev() const
     {
         switch(m_unit)
         {
             case 'd':
-                return m_value / q_e;
+                return m_value * q_e;
             case 'e':
                 return m_value;
             case 'c':
-                return m_value * cal / q_e;
+                return m_value * cal * q_e;
         }
         return 0;
     }
