@@ -101,6 +101,7 @@ private:
 class Ellipse : public Shape
 {
 static inline const auto pi = 3.14;
+
 public:
     Ellipse(double a = 0.0, double b = 0.0) : m_a(a), m_b(b)
     {
