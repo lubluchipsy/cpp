@@ -29,20 +29,21 @@ public:
         return (sqrt(p*(p - m_a)*(p - m_b)*(p - m_c)));
     }
 
-    double get_a()
+    const double get_a()
     {
         return m_a;
     }
 
-    double get_b()
+    const double get_b()
     {
         return m_b;
     }
 
-    double get_c()
+    const double get_c()
     {
         return m_c;
     }
+
 private:
     double m_a;
     double m_b;
@@ -71,7 +72,7 @@ public:
         return (m_a * m_a);
     }
 
-    double get_a()
+    const double get_a()
     {
         return m_a;
     }
@@ -101,6 +102,7 @@ public:
     {
         return 3.14 * m_r * m_r;
     }
+    
 private:
     double m_r;
 };
