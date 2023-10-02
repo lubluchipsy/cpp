@@ -51,36 +51,34 @@ private:
 };
 
 
-// Passkey pattern
-
-class Key
-{
-friend class B;
-};
-
-class A 
-{
+class Secret 
+{   
+    class ConstructorKey 
+        {
+        friend class SecretFactory;
+        private:
+            ConstructorKey() {};
+            ConstructorKey(ConstructorKey const&) = default;
+        };
 public:
-    void get_secret(Key & key)
-    {
-        std::cout << "secret data: " << secret_data;
-    }
+    Secret(std::string str, ConstructorKey) : data(std::move(str)) {}
 
 private:
-    const int secret_data{777};
-    int other_secret{};
-friend class Key;
+    void addData(std::string const& moreData);
+
+    std::string data;
 };
 
-class B 
+
+class SecretFactory 
 {
 public:
-    void get_A_secret(Key & key) 
+    Secret getSecret(std::string str) 
     {
-        A a;
-        a.get_secret(key);
+    return Secret{std::move(str), {}};
     }
 };
+
 
 int main()
 {
@@ -91,9 +89,13 @@ int main()
     std::cout << "\n";
 
 // Passkey pattern demonstration
-    B b;
-    Key key;
-    b.get_A_secret(key);
+    SecretFactory sf;
+    Secret s = sf.getSecret("moo!");
+
+    return 0;
 }
 
-
+/*
+Attorney-client idiom and Passkey pattern have same functions: they both give access to a specified set of class private data to another class.
+In my opinion the Passkey pattern is easiar to read and understand.
+*/
