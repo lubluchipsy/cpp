@@ -2,17 +2,6 @@
 #include <math.h>
 
 
-double pow(double a, int b)
-{
-    auto res = 1.0;
-    for(auto i = 0; i < b; i++)
-    {
-        res *= a;
-    }
-    return res;
-}
-
-
 class Shape
 {
 public:
@@ -44,7 +33,7 @@ public:
         return m_a * m_b;
     }
 
-protected:
+private:
     double m_a;
     double m_b;
 };
@@ -63,10 +52,6 @@ public:
 class Triangle : public Polygon
 {
 public:
-    Triangle() : m_a(0), m_b(0), m_c(0)
-    {
-    }
-
     Triangle(double a = 0.0, double b = 0.0, double c = 0.0) : m_a(a), m_b(b), m_c(c)
     {
         if(m_a > (m_b + m_c) || m_b > (m_a + m_c) || m_c > (m_b + m_a))  //doesn't exist
@@ -109,7 +94,7 @@ public:
 
     double perimeter() const override
     {
-        return (4*(pi*m_a*m_b - pow(m_a - m_b, 2))/(m_a + m_b));
+        return (4*(pi*m_a*m_b - std::pow(m_a - m_b, 2))/(m_a + m_b));
     }
 
     double area() const override
@@ -117,7 +102,7 @@ public:
         return (pi * m_a * m_b);
     }
 
-protected:
+private:
     double m_a;
     double m_b;
 };
@@ -137,19 +122,14 @@ int main()
 {
     auto size = 5;
 
-    auto shapes = new Shape*[size];
+    Shape * shapes[5];
 
-    Rectangle rectangle(5, 3);
-    Square square(4);
-    Triangle triangle(3, 4, 5);
-    Ellipse ellipse(5, 3);
-    Circle circle(4);
+    shapes[0] = new Rectangle(5,3);
+    shapes[1] = new Square(4);
+    shapes[2] = new Triangle(3, 4, 5);
+    shapes[3] = new Ellipse(5, 3);
+    shapes[4] = new Circle(4);
 
-    shapes[0] = &rectangle;
-    shapes[1] = &square;
-    shapes[2] = &triangle;
-    shapes[3] = &ellipse;
-    shapes[4] = &circle;
 
     std::cout << "Areas: ";
 
@@ -165,7 +145,10 @@ int main()
         std::cout << shapes[i]->perimeter() << "  ";
     }
 
-    delete[] shapes;
+    for (auto i = 0; i < 5; i++)
+    {
+        delete shapes[i];
+    }
 
     return 0;
 }
