@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <iostream>
 
 
@@ -57,12 +65,12 @@ public:
 		}
 	}
 
-    size_t get_size()  //size getter
+    size_t get_size() const //size getter
     {
         return m_size;
     }
 
-    capacity_t get_capacity()  //capacity getter
+    capacity_t get_capacity() const //capacity getter
     {
         return m_capacity;
     }
@@ -123,11 +131,6 @@ public:
 
     void clear()
     {
-        for(auto i = 0; ; i < m_size)
-        {
-            m_data[i++] = 0;
-        }
-
         m_size = 0;
     }
 
@@ -138,3 +141,16 @@ private:
     capacity_t m_capacity;
 
 };
+
+
+int main()
+{
+    Container c;
+    c.push_back(42);
+    c.push_back(2);
+    std::cout << c.get_capacity()<< std::endl;
+    std::cout << c.get_size() << std::endl;
+    std::cout << c[0] << " ";
+    std::cout << c[1];
+    return 0;
+}
