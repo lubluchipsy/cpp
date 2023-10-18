@@ -67,22 +67,22 @@ public:
         return m_capacity;
     }
 
-    data_t front()
+    data_t& front()
     {
         return m_data[0];
     }
     
-    const data_t front() const
+    const data_t& front() const
     {
         return m_data[0];
     }
 
-    data_t back()
+    data_t& back()
     {
         return m_data[m_size - 1];
     }
     
-    const data_t back() const
+    const data_t& back() const
     {
         return m_data[m_size - 1];
     }
@@ -116,9 +116,9 @@ public:
         m_data[m_size++] = value;  //adding element to the array
     }
 
-    bool empty()
+    bool empty() const
     {
-        return (m_size ? true : false);
+        return m_size == 0;
     }
 
     void clear()
