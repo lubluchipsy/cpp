@@ -1,10 +1,10 @@
 #include <iostream>
-
-void merge(int* arr, int left, int mid, int right)
+template < typename T >
+void merge(T* arr, int left, int mid, int right)
 {
     auto size = right - left + 1;
 
-    auto* res = new int[size];
+    auto* res = new T[size];
 
     auto size1 = mid - left + 1;
     auto size2 = right - mid;
@@ -50,7 +50,8 @@ void merge(int* arr, int left, int mid, int right)
     delete[] res;
 }
 
-void mergesort(int* arr, int left, int right)
+template < typename T >
+void mergesort(T* arr, int left, int right)
 {
     if (right > left)
     {
@@ -61,28 +62,3 @@ void mergesort(int* arr, int left, int right)
         }
 }
 
-int main()
-{
-    int size{};
-    std::cout << "Enter array size: ";
-    std::cin >> size;
-    std::cout << "Enter the array: ";
-    auto* arr = new int[size];
-    
-    for (auto i = 0; i < size; i++)
-    {
-         std::cin >> arr[i];
-    }
-
-    mergesort(arr, 0, size - 1);
-
-    std::cout << "Sorted array: ";
-
-    for (auto i = 0; i < size; i++)
-    {
-         std::cout << arr[i] << " ";
-    }
-    
-    
-    return 0;
-}
