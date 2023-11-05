@@ -2,10 +2,12 @@
 
 struct Printer     
 {
-    Printer() 
+    ~Printer() 
     {
         std::cout << "Hello, world!" << std::endl;
     }
+
+
 };
 
 Printer Printer;  // outputting string with struct constuctor
@@ -15,7 +17,7 @@ const int printer = (std::cout << "Hello, world!" << std::endl, 0);  //outputtin
 
 int printer_foo()
 {
-    std::cout << "Hello, world!";
+    std::cout << "Hello, world!" << std::endl;
     return 0;
 }
 
