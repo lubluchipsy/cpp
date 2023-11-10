@@ -54,11 +54,7 @@ int main()
 {
     Builder builder;
 
-    Person p = builder
-    .name("Ivan")
-    .age(26)
-    .height(180)
-    .get();
+    Person p = builder.name("Ivan").age(26).height(180).get();
 
     std::cout << p.m_name << " " << p.m_age << " " << p.m_height << std::endl;
 }
