@@ -11,42 +11,33 @@ public:
 };
 
 
-class Builder
+class Builder: public Person
 {
 public:
 
-    explicit Builder()
+    auto get() const {return m_person;}
+
+    Builder name(std::string name)
     {
-        m_person = new Person;
-    }
-
-    virtual ~Builder() = default;
-
-    auto person() const {return m_person;}
-
-    auto get() const {return * m_person;}
-
-    virtual Builder name(std::string name)
-    {
-        person()->m_name = name;
+        m_person.m_name = name;
         return *this;
     }
 
-    virtual Builder age(int age)
+    Builder age(int age)
     {
-        person()->m_age = age;
+        m_person.m_age = age;
         return *this;
     }
 
-    virtual Builder height(int height)
+    Builder height(int height)
     {
-        person()->m_height = height;
+        m_person.m_height = height;
         return *this;
     }
 
 private:
 
-    Person * m_person;
+    Person m_person;
 };
 
 
