@@ -71,7 +71,7 @@ public:
 
     void show_position()
     {
-        std::cout << "(" << m_x << ", " << m_y << ")";
+        std::cout << "(" << m_x << ", " << m_y << ")" << std::endl;
     }
 
     double m_x;
@@ -94,6 +94,9 @@ int main()
     std::cout << p1.show() << std::endl;
     std::cout << p1.print() << std::endl;
     p1.show_position();
+
+    Point <  > p2 (2, 4); 
+    p2.show_position();
 
     return 0;
 }
