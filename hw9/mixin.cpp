@@ -7,22 +7,21 @@ class Color
 
 public:
     
-    Color(std::string & color): m_color(color){};
-    Color(std::string && color): m_color(color){};
+    Color(const std::string & color): m_color(color){};
 
-    void paint(std::string & new_color)
+    void paint(const std::string & new_color)
     {
         m_color = new_color;
     }
 
-    std::string get_color() const
+    const auto & show() const
     {
         return m_color;
     }
 
 private:
 
-    std::string & m_color;
+    std::string m_color;
 
 };
 
@@ -32,8 +31,7 @@ class Label
 
 public:
 
-    Label(std::string & text): m_text(text){};
-    Label(std::string && text): m_text(text){};
+    Label(const std::string & text): m_text(text){};
 
     void caps()
     {
@@ -43,50 +41,38 @@ public:
         }
     }
 
-    void set(std::string new_text)
+    void clear()
     {
-        m_text = new_text;
+        m_text.erase();
     }
 
-    std::string get_text() const
+    void add(const std::string & text)
+    {
+        m_text += text;
+    }
+
+    auto & print() const
     {
         return m_text;
     }
 
 private:
 
-    std::string & m_text;
+    std::string m_text;
 };
 
 
-template < typename ... Bases > 
+template < class ... Bases > 
 class Point : public Bases...
 {
 public:
 
-    explicit Point(Bases ... args, double x, double y) : Bases(args)..., m_x(x), m_y(y){};
+    template < typename ... Types >  explicit Point(double x, double y, const Types& ... args) : m_x(x), m_y(y), Bases(args)...{};
 
-    void set_x(double new_x)
+    void show_position()
     {
-        m_x = new_x;
+        std::cout << "(" << m_x << ", " << m_y << ")";
     }
-
-    void set_y(double new_y)
-    {
-        m_y = new_y;
-    }
-
-    double get_x() const
-    {
-        return m_x;
-    }
-
-    double get_y() const
-    {
-        return m_y;
-    }
-
-private:
 
     double m_x;
     double m_y;
@@ -100,15 +86,14 @@ int main()
     std::string color = "yellow";
     std::string text = "point";
 
-    Point < Color, Label > p1 ( Color("white"), Label(text), 2, 3 ); 
+    Point < Color, Label > p1 (2, 3, "white", "point"); 
 
     p1.caps();
     p1.paint(color);
 
-    std::cout << "Color is: " << p1.get_color() << "\n"
-              << "Label is: " << p1.get_text() <<  "\n"
-              << "(x, y) = " << "(" << p1.get_x() <<  ", " << p1.get_y() << ")"
-              << std::endl;
-    
+    std::cout << p1.show() << std::endl;
+    std::cout << p1.print() << std::endl;
+    p1.show_position();
+
     return 0;
 }
