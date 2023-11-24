@@ -3,28 +3,28 @@
 // CRTP
 
 
-template<typename T>
+template < typename T >
 class CourseTime
 {
 
 public:
 
-    double theory()
+    double theory() 
     {
-        return static_cast<T*>(this)->theory_impl();
+        return course()->theory_impl();
     }
 
-    double homework()
+    double homework() 
     {
-        return static_cast<T*>(this)->homework_impl();
+        return course()->homework_impl();
     }
 
-    double attendance()
+    double attendance() 
     {
-        return static_cast<T*>(this)->attendance_impl();
+        return course()->attendance_impl();
     }
 
-    double calculate_time(int rate)
+    double calculate_time(int rate) 
     {
         if (rate < 3)
         {
@@ -48,22 +48,29 @@ public:
         }
     }
 
+private:
+
+    T* course() 
+        {
+            return static_cast < T* >(this);
+        }
+    
 };
 
 
-class MathAnalysis: public CourseTime<MathAnalysis>
+class MathAnalysis: public CourseTime < MathAnalysis >
 {
 
 public:
 
-    MathAnalysis(double halyavnost, double lector_multiplicator): halyavnost_(halyavnost), lector_multiplicator_(lector_multiplicator){};
+    explicit MathAnalysis(double halyavnost, double lector_multiplicator): halyavnost_(halyavnost), lector_multiplicator_(lector_multiplicator){};
 
-    double theory_impl()
+    double theory_impl() const
     {
         return 14 * 1.5 / lector_multiplicator_;  //watching lectures
     }
 
-    double homework_impl()
+    double homework_impl() const 
     {
         if (halyavnost_ > 4.5)
         {
@@ -81,7 +88,7 @@ public:
         }
     }
 
-    double attendance_impl()
+    double attendance_impl() const 
     {
         return 14 * 1.5;  // attending seminars
     }
@@ -94,24 +101,24 @@ private:
 };
 
 
-class Cpp: public CourseTime<Cpp>
+class Cpp: public CourseTime < Cpp >
 {
 
 public:
 
-    Cpp(int topics_per_class): topics_per_class_(topics_per_class){};
+    explicit Cpp(int topics_per_class): topics_per_class_(topics_per_class){};
 
-    double theory_impl()
+    double theory_impl() const 
     {
         return 14 * 0.25 * topics_per_class_;  // spending 15 mins on 1 topic
     }
 
-    double attendance_impl()
+    double attendance_impl() const
     {
         return 14 * 3;
     }
 
-    double homework_impl()
+    double homework_impl() const
     {
         return 14 * 3 * topics_per_class_; 
     }
@@ -139,3 +146,5 @@ int main()
 // Используя паттерн CRTP мы пользуемся одновременно преимуществами динамического и статического полиморфизма.
 // Мы реализуем механизм виртуальных функций без использования виртуальных функций,
 // тем самым избегая увеличения времени выполнения кода и дополнительных затрат памяти.
+// Недостаток CRTP заключается в том, что базовые классы у производных получаются разные за счет использования шаблонов, 
+// и объекты производных не получится поместить в один контейнер.

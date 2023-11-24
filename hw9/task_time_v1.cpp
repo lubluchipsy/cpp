@@ -8,11 +8,7 @@ class CourseTime
 
 public:
 
-    virtual double theory() = 0;  // time spent on researching theory
-    virtual double homework() = 0;  // time spent on doing homework
-    virtual double attendance() = 0;  // time spent on attending classes
-
-    double calculate_time(int rate)
+    double calculate_time(int rate) const 
     {
         if (rate < 3)
         {
@@ -38,6 +34,12 @@ public:
 
     virtual ~CourseTime(){};
 
+private:
+
+    virtual double theory() const = 0;  // time spent on researching theory
+    virtual double homework() const = 0;  // time spent on doing homework
+    virtual double attendance() const = 0;  // time spent on attending classes
+
 };
 
 
@@ -46,14 +48,16 @@ class MathAnalysis: public CourseTime
 
 public:
 
-    MathAnalysis(double halyavnost, double lector_multiplicator): halyavnost_(halyavnost), lector_multiplicator_(lector_multiplicator){};
+    explicit MathAnalysis(double halyavnost, double lector_multiplicator): halyavnost_(halyavnost), lector_multiplicator_(lector_multiplicator){};
 
-    double theory() override
+private:
+
+    double theory() const override
     {
         return 14 * 1.5 / lector_multiplicator_;  //watching lectures
     }
 
-    double homework() override
+    double homework() const override
     {
         if (halyavnost_ > 4.5)
         {
@@ -71,14 +75,11 @@ public:
         }
     }
 
-    double attendance() override
+    double attendance() const override
     {
         return 14 * 1.5;  // attending seminars
     }
-    
 
-private:
-    
     double halyavnost_;
     double lector_multiplicator_;  
 
@@ -90,24 +91,24 @@ class Cpp: public CourseTime
 
 public:
 
-    Cpp(int topics_per_class): topics_per_class_(topics_per_class){};
+    explicit Cpp(int topics_per_class): topics_per_class_(topics_per_class){};
 
-    double theory() override
+private:
+
+    double theory() const override
     {
         return 14 * 0.25 * topics_per_class_;  // spending 15 mins on 1 topic
     }
 
-    double attendance() override
+    double attendance() const override
     {
         return 14 * 3;
     }
 
-    double homework() override
+    double homework() const override
     {
         return 14 * 3 * topics_per_class_; 
     }
-
-private:
 
     int topics_per_class_;
 
