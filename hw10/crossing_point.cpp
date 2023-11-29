@@ -3,7 +3,9 @@
 
 struct Point;
 
-using CrossPoints = std::variant < Point, const char * >;
+struct Line;
+
+using CrossPoints = std::variant < Point, std::monostate, Line >;
 
 
 struct Point
@@ -35,12 +37,12 @@ CrossPoints find_crossings(const Line & l1, const Line & l2)
     {
         if ((l1.a_ * l2.c_) == (l2.a_ * l1.c_) & (l1.b_ * l2.c_) == (l2.b_ * l1.c_)) 
         {
-            return "Lines coincide.";
+            return l1;
         }
 
         else
         {
-            return "Lines are parallel.";
+            return std::monostate();
         }
     }
 
@@ -56,15 +58,22 @@ CrossPoints find_crossings(const Line & l1, const Line & l2)
 
 void get_crossings(const CrossPoints & crossings)
 {
-    if (std::holds_alternative < const char *  > (crossings))
+    if (std::holds_alternative < Line > (crossings))
     {
-        std::cout << std::get < const char * > (crossings) << std::endl;
+        Line line = std::get < Line> (crossings);
+
+        std::cout << line.a_ << "x + " << line.b_ << "y + " << line.c_ << " = 0" << std::endl;
     } 
 
     if (std::holds_alternative < Point > (crossings))
     {
         Point point = std::get < Point > (crossings);
         std::cout << "Crossing point: " << "(" << point.x_ << ", " << point.y_ << ")" << std::endl;
+    } 
+
+    if (std::holds_alternative < std::monostate > (crossings))
+    {
+        std::cout << "Lines do not cross." << std::endl;
     } 
 }
 
