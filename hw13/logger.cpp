@@ -2,7 +2,6 @@
 #include <source_location>
 
 
-
 class Logger
 {
 public:
@@ -24,6 +23,7 @@ private:
     std::source_location m_source;
 
 };
+
 
 void foo()
 {
