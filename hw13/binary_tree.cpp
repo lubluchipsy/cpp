@@ -14,6 +14,10 @@ template < typename T > struct Node
 
     std::weak_ptr < Node > parent;
 
+    ~Node()
+    {
+        std::cout << "Node destroyed" << std::endl;
+    }
 };
 
 
@@ -32,7 +36,5 @@ int main()
     tree->right->right->parent = tree->right;
 
     tree->right->right.reset();
-
-    assert(tree->right->right->parent.expired());
 
 }
