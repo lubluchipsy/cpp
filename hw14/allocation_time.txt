@@ -1,0 +1,11 @@
+Allocation of 1024 bytes took 2e-06 seconds
+Allocation of 4096 bytes took 6e-06 seconds
+Allocation of 16384 bytes took 3e-06 seconds
+Allocation of 65536 bytes took 3.4e-05 seconds
+Allocation of 262144 bytes took 3e-05 seconds
+Allocation of 1048576 bytes took 2.4e-05 seconds
+Allocation of 4194304 bytes took 2e-05 seconds
+Allocation of 16777216 bytes took 2.5e-05 seconds
+Allocation of 67108864 bytes took 2e-05 seconds
+Allocation of 268435456 bytes took 2.7e-05 seconds
+Allocation of 1073741824 bytes took 3.6e-05 seconds
