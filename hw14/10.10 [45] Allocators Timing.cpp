@@ -6,6 +6,7 @@
 #include <vector>
 #include <chrono>
 #include <cmath>
+#include <fstream>
 
 #include <boost/noncopyable.hpp>
 
@@ -316,39 +317,62 @@ private:
 
 void test_arena(Timer & timer)
 {
+	constexpr std::size_t kb = 1024, mb = kb * kb, gb = kb * kb * kb;
+
 	timer.start();
 	{
-		Arena_Allocator arena(1048576);
+		Arena_Allocator allocator(gb); 
+
+		for (std::size_t i = 0; i < kb; ++i)
+		{
+			auto ptr = allocator.allocate(mb);
+		}
 	}
 	timer.stop();
 }
 
 void test_stack(Timer & timer)
 {
+	constexpr std::size_t kb = 1024, mb = kb * kb, gb = kb * kb * kb;
+
 	timer.start();
 	{
-		Stack_Allocator stack(1048576);
+		Stack_Allocator allocator(gb); 
+
+		for (std::size_t i = 0; i < kb; ++i)
+		{
+			auto ptr = allocator.allocate(mb);
+		}
 	}
 	timer.stop();
 }
 
 void test_chain(Timer & timer)
 {
+	constexpr std::size_t kb = 1024, mb = kb * kb, gb = kb * kb * kb;
+
 	timer.start();
 	{
-		Chain_Allocator chain(1048576, 1024);
+		Chain_Allocator allocator(gb, mb); 
+
+		for (std::size_t i = 0; i < kb; ++i)
+		{
+			auto ptr = allocator.allocate();
+		}
 	}
 	timer.stop();
 }
 
 void test_new(Timer & timer)
 {
-	void * ptr;
+	constexpr std::size_t kb = 1024, mb = kb * kb;
+
+	std::vector < void * > pointers(kb, nullptr);
 
 	timer.start();
 	{
-		ptr = ::operator new(1024);
-		::operator delete(ptr);
+		for (std::size_t i = 0; i < kb; ++i) pointers[i] = ::operator    new(             mb);
+		for (std::size_t i = 0; i < kb; ++i)               ::operator delete(pointers[i], mb);
 	}
 	timer.stop();
 }
@@ -370,11 +394,17 @@ int main()
 		test_new(t_new);
 	}
 
-	std::cout << "Average time of allocating 1048576 bytes with          Arena: " << arena.result() << std::endl;
-	std::cout << "Average time of allocating 1048576 bytes with          Stack: " << stack.result() << std::endl;
-	std::cout << "Average time of allocating 1048576 bytes with          Chain: " << chain.result() << std::endl;
-	std::cout << "Average time of allocating 1048576 bytes with ::operator new: " << t_new.result() << std::endl;
-	
+	std::ofstream out;          // поток для записи
+    out.open("allocators_comparison.txt");      // открываем файл для записи
+    if (out.is_open())
+	{
+		out << "Average time of allocating 1048576 bytes with          Arena: " << arena.result() << " seconds" << std::endl;
+		out << "Average time of allocating 1048576 bytes with          Stack: " << stack.result() << " seconds"  << std::endl;
+		out << "Average time of allocating 1048576 bytes with          Chain: " << chain.result() << " seconds" << std::endl;
+		out << "Average time of allocating 1048576 bytes with ::operator new: " << t_new.result() << " seconds"  << std::endl;
+	}
+
+	// results in allocators_comparison.txt
 
 	return 0;
 }

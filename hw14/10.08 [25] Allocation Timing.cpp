@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <chrono>
 #include <vector>
+#include <fstream>
 
 
 class Timer
@@ -79,12 +80,19 @@ int main()
 {
     Timer timer("Memory test");
 
-	for (long int size = pow(2, 10); size <= pow(2, 30); size *= 4)
+	std::ofstream out;          
+    out.open("allocation_time.txt");     
+    if (out.is_open())
 	{
-		allocation_time(size, timer);
+		for (long int size = pow(2, 10); size <= pow(2, 30); size *= 4)
+		{
+			allocation_time(size, timer);
 
-		std::cout << "Allocation of " << size << " bytes took " <<  timer.m_series.back() / 1'000'000.0 << " seconds" << std::endl;
+			out << "Allocation of " << size << " bytes took " <<  timer.m_series.back() / 1'000'000.0 << " seconds" << std::endl;
+		}
 	}
 	
+	// results in allocation_time.txt
+
     return 0;
 }
