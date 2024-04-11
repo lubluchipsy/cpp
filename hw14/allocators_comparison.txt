@@ -1,4 +1,4 @@
-Average time of allocating 1048576 bytes with          Arena: 7.47e-05 seconds
-Average time of allocating 1048576 bytes with          Stack: 0.0038434 seconds
-Average time of allocating 1048576 bytes with          Chain: 0.0035784 seconds
-Average time of allocating 1048576 bytes with ::operator new: 0.0070285 seconds
+Average time of allocating 1048576 bytes with          Arena: 4.25e-05 seconds
+Average time of allocating 1048576 bytes with          Stack: 8.13e-05 seconds
+Average time of allocating 1048576 bytes with          Chain: 5.45e-05 seconds
+Average time of allocating 1048576 bytes with ::operator new: 0.0051128 seconds

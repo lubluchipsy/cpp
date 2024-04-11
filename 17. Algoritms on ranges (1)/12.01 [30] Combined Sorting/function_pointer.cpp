@@ -59,13 +59,12 @@ int main()
 
 	std::iota(std::begin(vector), std::end(vector), 1); // 1 2 3 4 5 6 7 8 9 10
 
-	merge_sort(vector, 0, n, [](int lhs, int rhs){return lhs > rhs;});
+	merge_sort(vector, 0, n, comp);  // sort in descending order
 
 	for (const auto element : vector) std::cout << element << ' '; // output: 10 9 8 7 6 5 4 3 2 1
 
 	std::cout << std::endl;
 
-    
 
 	return 0;
 }

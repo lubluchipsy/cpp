@@ -1,0 +1,5 @@
+Array: 212927 mks
+Vector: 283860 mks
+Deque: 573913 mks
+List: 1001331 mks
+Forward list: 1276371 mks

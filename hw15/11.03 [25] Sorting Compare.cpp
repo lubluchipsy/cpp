@@ -8,6 +8,7 @@
 #include <random>
 #include <algorithm>
 #include <cassert>
+#include <fstream>
 
 class Timer
 {
@@ -73,38 +74,32 @@ private:
 
 int main()
 {
+    const std::size_t size = 1000000;
+
     std::random_device rd;   // non-deterministic generator
     std::mt19937 gen(rd());  // to seed mersenne twister.
-    std::uniform_int_distribution<> dist(0,1000000); // distribute results between 1 and 6 inclusive.
+    std::uniform_int_distribution<> dist(0, size); 
 
     std::vector <int> vector;
-    for (auto i = 0; i < 1000000; i++)
-    {
-        vector.push_back(dist(gen));
-    }
+    vector.reserve(size);
 
-    std::array <int, 1000000> array;
-    for (auto i = 0; i < 1000000; i++)
-    {
-        array.at(i) = dist(gen);
-    }
+    std::array <int, size> array;
 
     std::deque <int> deque;
-    for (auto i = 0; i < 1000000; i++)
-    {
-        deque.push_back(dist(gen));
-    }
 
     std::list <int> list;
-    for (auto i = 0; i < 1000000; i++)
-    {
-        list.push_back(dist(gen));
-    }
 
     std::forward_list <int> f_list;
-    for (auto i = 0; i < 1000000; i++)
+
+    for (auto i = 0; i < size; i++)
     {
-        f_list.push_front(dist(gen));
+        auto element{dist(gen)};
+
+        vector.push_back(element);
+        array.at(i) = element;
+        deque.push_back(element);
+        list.push_back(element);
+        f_list.push_front(element);
     }
 
     Timer timer("sorting");
@@ -129,11 +124,16 @@ int main()
     f_list.sort();
     timer.stop();
 
-    std::cout << "Array: " << timer.m_series[0] << std::endl;
-    std::cout << "Vector: " << timer.m_series[1] << std::endl;
-    std::cout << "Deque: " << timer.m_series[2] << std::endl;
-    std::cout << "List: " << timer.m_series[3] << std::endl;
-    std::cout << "Forward list: " << timer.m_series[4] << std::endl;
+    std::ofstream out;          // поток для записи
+    out.open("11.03.txt");      // открываем файл для записи
+    if (out.is_open())
+    {
+    out << "Array: " << timer.m_series[0] << " mks" << std::endl;
+    out << "Vector: " << timer.m_series[1]<< " mks" << std::endl;
+    out << "Deque: " << timer.m_series[2] << " mks" << std::endl;
+    out << "List: " << timer.m_series[3] << " mks" << std::endl;
+    out << "Forward list: " << timer.m_series[4] << " mks" << std::endl;
+    }
 
     assert(timer.m_series[0] < timer.m_series[1] &&
            timer.m_series[1] < timer.m_series[2] && 

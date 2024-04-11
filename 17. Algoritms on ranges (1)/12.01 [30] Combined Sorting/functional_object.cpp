@@ -65,11 +65,11 @@ int main()
 	for (const auto element : vector) std::cout << element << ' '; // output: 10 9 8 7 6 5 4 3 2 1
 	std::cout << std::endl;
 
-    merge_sort<std::less<int>> (vector, 0, n, std::less()); // sort in ascending order
+    merge_sort <std::less<int>> (vector, 0, n, std::less<int>()); // sort in ascending order
     for (const auto element:vector) std::cout << element << ' '; //output: 1 2 3 4 5 6 7 8 9 10
     std::cout << std::endl;
 
-    merge_sort (vector, 0, n, std::greater()); // sort in ascending order
+    merge_sort <std::greater<int>> (vector, 0, n, std::greater<int>()); // sort in ascending order
     for (const auto element:vector) std::cout << element << ' '; //output: 10 9 8 7 6 5 4 3 2 1
     std::cout << std::endl;
 

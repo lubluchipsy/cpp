@@ -1,23 +1,15 @@
 #include <iostream>
 #include <string>
-
-std::string reverse(std::string  & s)
-{
-    std::string reversed;
-    for (auto i = s.end(); i != s.begin() - 1; i--)
-    {
-        reversed.push_back(*i);
-    }
-
-    return reversed;
-}
+#include <vector>
+#include <algorithm>
+#include <ranges>
 
 std::string find_lcs(std::string & s1, std::string & s2)
 {
-    std::size_t n = s1.size();
-    std::size_t m = s2.size();
+    const std::size_t n = s1.size();
+    const std::size_t m = s2.size();
 
-    int table[n+1][m+1];
+    std::vector<std::vector<int>> table((n+1), std::vector<int>(m+1));
 
     for (auto i = 0; i < n+1; i++)
     {
@@ -27,14 +19,14 @@ std::string find_lcs(std::string & s1, std::string & s2)
             {
                 table[i][j] = 0;
             }
-            if (s1[i-1] == s2[j-1])
+            else if (s1[i-1] == s2[j-1])
             {
                 table[i][j] = table[i-1][j-1] + 1;
             }
-           else
-           {
+            else
+            {
                 table[i][j] = (table[i-1][j] >= table[i][j-1]) ? table[i-1][j] : table[i][j-1];
-           } 
+            } 
         } 
     }
 
@@ -62,9 +54,8 @@ std::string find_lcs(std::string & s1, std::string & s2)
             }
         }
     }
-
-    
-    return reverse(lcs);
+    std::ranges::reverse(lcs);
+    return lcs;
 }
 
 

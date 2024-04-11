@@ -27,10 +27,8 @@ int main()
     assert(std::count_if(std::begin(v1), std::end(v1), [](auto n){return n % 7 == 0;}) == 4);
     
     std::shift_left(std::begin(v1), std::end(v1), 3); // v1 = 3 4 5 6 7 8 9 7 8 9 
-    print(v1);
 
     std::rotate(std::begin(v1), (std::begin(v1) + std::size(v1)/2), std::end(v1)); // v1 = 8 9 7 8 9 3 4 5 6 7
-    print(v1);
 
     std::fill_n(std::begin(v1), 3, 1); // v1 = 1 1 1 8 9 3 4 5 6 7 
 
@@ -38,16 +36,13 @@ int main()
     std::unique_copy(std::begin(v1), std::end(v1), std::back_inserter(v2)); // v2 = 1 8 9 3 4 5 6 7 
 
     std::replace_if(std::begin(v2), std::end(v2), [](auto n){return n % 3 == 0;}, 2); // v2 = 1 8 2 2 4 5 2 7
-    print(v2);
 
     std::iter_swap(std::begin(v2), std::end(v2)- 1); //v2 = 7 8 2 2 4 5 2 1 
-    print(v2);
 
     std::vector < int > v3(4);
-    std::copy_n(std::begin(v2), 4, std::begin(v3));
-    print(v3);
+    std::copy_n(std::begin(v2), 4, std::begin(v3)); // v3 = 7 8 2 2
 
-    assert(*std::mismatch(std::begin(v2), std::end(v2), std::begin(v3), std::end(v3)).first == 4);
+    assert(*std::mismatch(std::begin(v2), std::end(v2), std::begin(v3), std::end(v3)).first == 4); //first mismatching element in v2
 
     return 0;
 }

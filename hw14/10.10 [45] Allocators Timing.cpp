@@ -342,6 +342,7 @@ void test_stack(Timer & timer)
 		for (std::size_t i = 0; i < kb; ++i)
 		{
 			auto ptr = allocator.allocate(mb);
+			allocator.deallocate(ptr);
 		}
 	}
 	timer.stop();
@@ -358,7 +359,9 @@ void test_chain(Timer & timer)
 		for (std::size_t i = 0; i < kb; ++i)
 		{
 			auto ptr = allocator.allocate();
+			allocator.deallocate(ptr);
 		}
+
 	}
 	timer.stop();
 }
