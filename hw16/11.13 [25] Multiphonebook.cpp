@@ -3,6 +3,9 @@
 #include <boost/multi_index/hashed_index.hpp>
 #include <boost/multi_index/random_access_index.hpp>
 #include <string>
+#include <boost/bimap.hpp>
+#include <cassert>
+#include <iostream>
 
 struct Person
 {
@@ -29,17 +32,28 @@ using Persons = boost::multi_index::multi_index_container
 
 int main()
 {
-    Persons persons
-    {
-        Person{"88005553535", "Sergey", "Sergeev"},
-        Person{"89001234567", "Ivan", "Ivanov"},
-        Person{"88009876534", "Dmitriy", "Dmitriev"},
-        Person{"89172345678", "Roman", "Romanov"}
-    };
-  
-    auto const& personsByName = persons.get<PersonsBySurname>();
-    auto const& personsRandomAccess = persons.get<PersonsRandomAccess>();
-    auto const& personsHashed = persons.get<PersonsHashed>();
-
+    Persons persons;
     
-}
+    persons.insert({"88005553535", "Sergey", "Sergeev"});
+    persons.insert({"89001234567", "Ivan", "Ivanov"});
+    persons.insert({"88009876534", "Dmitriy", "Dmitriev"});
+    persons.insert({"89172345678", "Roman", "Romanov"});
+    
+  
+    auto & personsByName = persons.get<PersonsBySurname>();
+    auto & personsRandomAccess = persons.get<PersonsRandomAccess>();
+    auto & personsHashed = persons.get<PersonsHashed>();
+
+    using namespace std::literals::string_literals;
+
+    assert(personsRandomAccess[0].name == "Sergey");
+
+    std::cout << personsHashed.find("89001234567"s)->name << std::endl;
+
+    for(auto i = personsByName.begin(); i != personsByName.end(); i++)
+    {
+        std::cout << i->name << " ";
+    }
+    std::cout << std::endl;
+
+}   
