@@ -149,10 +149,7 @@ int main()
 	{
 		std::cout << result/1000000.0 << ", ";
 	}
-
 	std::cout << "]" << std::endl;
-
-	
 
 	return 0;
 }
