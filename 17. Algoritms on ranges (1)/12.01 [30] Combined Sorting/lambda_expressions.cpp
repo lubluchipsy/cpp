@@ -62,7 +62,7 @@ int main()
 	std::vector < int > vector(n, 0);
 	std::iota(std::begin(vector), std::end(vector), 1); // vector = 1 2 3 4 5 6 7 8 9 10
 
-	merge_sort(vector, 0, n, [](const int lhs, const int rhs){return lhs > rhs;});
+	merge_sort(vector, 0, n, [](auto lhs, auto rhs){return lhs > rhs;});
 
 	for (const auto element:vector) std::cout << element << ' '; //output: 10 9 8 7 6 5 4 3 2 1
     std::cout << std::endl;
