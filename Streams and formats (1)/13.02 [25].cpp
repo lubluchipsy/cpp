@@ -2,9 +2,12 @@
 #include <string>
 #include <cmath>
 
-unsigned int number_of_digits(unsigned int const i)
+unsigned int number_of_digits(std::size_t const i)
 {
-    return i > 0 ? (int)log10((double)i) + 1 : 1;
+    if (i > 0)
+        return static_cast<int>(std::round(std::log10(static_cast<double>(i)))) + 1;
+    else
+        return 1;
 }
 
 void print_pascal_triangle(int const n)
@@ -16,7 +19,7 @@ void print_pascal_triangle(int const n)
         for (int j = 0; j <= i; j++)
         {
             auto y = x;
-            x = x * (i - j) / (j + 1);
+            x *= (i - j) / (j + 1);
             auto maxlen = number_of_digits(x) - 1;
             std::cout << y << std::string(n - 1 - maxlen - n%2, ' ');
         }
