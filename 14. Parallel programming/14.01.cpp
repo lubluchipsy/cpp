@@ -4,11 +4,10 @@
 
 int main()
 {
-    auto i = 0;
-    std::vector <std::thread> threads{};
+    std::vector <std::jthread> threads{};
     while (true)
     {
-        threads.push_back(std::thread([](){auto c=0; while(true){c++;};}));
+        threads.push_back(std::jthread([](){auto c=0; while(true){c++;};}));
         std::cout << threads.size() << "\n";
     }
 }
