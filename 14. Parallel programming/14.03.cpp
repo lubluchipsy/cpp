@@ -29,11 +29,7 @@ public:
 
     void operator()() const noexcept
 	{
-		try
-		{
-			m_count = generate_points(m_size);
-		}
-		catch(const std::exception &) {}
+        m_count = generate_points(m_size);
 	}
 
 private:
@@ -43,8 +39,14 @@ private:
 
 double calculate_pi(std::size_t size)
 {
-    const std::size_t n_threads = std::thread::hardware_concurrency();
+    const std::size_t min_size = 1000; 
 
+	const std::size_t max_threads = (size + min_size - 1) / min_size;
+
+	const std::size_t hardware = std::thread::hardware_concurrency();
+
+	const std::size_t n_threads = std::min(hardware != 0 ? hardware : 2, max_threads);
+    
     std::vector < std::size_t > results(n_threads, 0);
 
     {
@@ -56,7 +58,7 @@ double calculate_pi(std::size_t size)
         }
     }
 
-    Counter(size/n_threads, results[std::size(results)-1])();
+    Counter(size - (size/n_threads)*(n_threads-1), results[std::size(results)-1])();
 
     double sum = std::accumulate(results.begin(), results.end(), 0);
 
